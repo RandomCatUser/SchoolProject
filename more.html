@@ -16,7 +16,7 @@
       color: white;
       padding: 40px 20px;
       text-align: center;
-      font-size: 2.6rem;
+      font-size: 2.4rem;
       font-weight: bold;
       box-shadow: 0 4px 16px rgba(0, 122, 204, 0.6);
       border-bottom: 3px solid #005b87;
@@ -24,11 +24,12 @@
     nav {
       display: flex;
       justify-content: center;
-      gap: 30px;
+      gap: 20px;
       background-color: #d7ecff;
-      padding: 18px 0;
-      font-size: 1.1rem;
+      padding: 16px 10px;
+      font-size: 1rem;
       font-weight: 600;
+      flex-wrap: wrap;
     }
     nav a {
       color: #005f99;
@@ -43,7 +44,7 @@
     }
     main {
       max-width: 1000px;
-      margin: 60px auto;
+      margin: 40px auto;
       padding: 0 20px;
       animation: fadeIn 1s ease-in-out;
     }
@@ -76,15 +77,15 @@
       border-radius: 16px;
       box-shadow: 0 12px 36px rgba(0,0,0,0.08);
       line-height: 1.9;
-      font-size: 1.1rem;
+      font-size: 1.05rem;
       color: #2c2c2c;
-      text-align: left; /* changed from justify to left */
+      text-align: justify;
     }
     .view-team-btn {
       display: block;
       margin: 50px auto 0;
-      padding: 16px 40px;
-      font-size: 1.1rem;
+      padding: 14px 36px;
+      font-size: 1.05rem;
       background: linear-gradient(135deg, #007acc, #005f99);
       color: white;
       border: none;
@@ -102,6 +103,45 @@
       from { opacity: 0; transform: translateY(20px); }
       to { opacity: 1; transform: translateY(0); }
     }
+
+    @media (max-width: 768px) {
+      header {
+        font-size: 1.8rem;
+        padding: 30px 10px;
+      }
+      nav {
+        flex-direction: column;
+        align-items: center;
+        gap: 12px;
+        font-size: 0.95rem;
+      }
+      main {
+        padding: 0 10px;
+      }
+      .description {
+        font-size: 1rem;
+        padding: 20px;
+      }
+      .view-team-btn {
+        width: 80%;
+        padding: 12px;
+      }
+    }
+
+    @media (min-width: 1200px) {
+      header {
+        font-size: 3rem;
+      }
+      nav {
+        font-size: 1.2rem;
+      }
+      .description {
+        font-size: 1.15rem;
+      }
+      .view-team-btn {
+        font-size: 1.15rem;
+      }
+    }
   </style>
 </head>
 <body>
@@ -116,17 +156,21 @@
   <main>
     <img src="img1.png" alt="Plant Cell Parts Diagram" class="parts-img">
 
+    <div class="example-labels">
+      උදාහරණ 1: පරීක්ෂණය<br>
+      උදාහරණ 2: පරීක්ෂණය<br>
+      උදාහරණ 3: පරීක්ෂණය
+    </div>
+
     <div class="description">
-      සෑම සත්ත්ව සෛලයක් ම ආවරණය වී පවතින්නේ ප්ලාස්ම පටලය හෙවත් සෛල පටලයෙනි. එය සජීවී අර්ධ පාරගම්‍ය මෙන් ම වරණ පාරගම්‍ය පටලයකි. සත්ත්ව සෛලවල න්‍යෂ්ටිය සෛල ප්ලාස්මය තුළ කේන්ද්‍රගත ව පිහිටයි. සෛල ප්ලාස්මය ජල්ලිමය 
-      ද්‍රව්‍යයකි.<br><br>
+      සෑම සත්ත්ව සෛලයක් ම ආවරණය වී පවතින්නේ ප්ලාස්ම පටලය හෙවත් සෛල පටලයෙනි. එය සජීවී අර්ධ පාරගම්‍ය මෙන් ම වරණ පාරගම්‍ය පටලයකි. සත්ත්ව සෛලවල න්‍යෂ්ටිය සෛල ප්ලාස්මය තුළ කේන්ද්‍රගත ව පිහිටයි. සෛල ප්ලාස්මය ජල්ලිමය ද්‍රව්‍යයකි.<br><br>
       ශාක සෛලවල බාහිර ආවරණය සෛල බිත්තියයි. සෛල බිත්තිය සෙලියුලෝස්වලින් සෑදී ඇත. සෛල බිත්තියට ඇතුළතින් ප්ලාස්ම පටලය හෙවත් සෛල පටලය පිහිටා ඇත. ශාක සෛලවල සෛල මධ්‍යයේ විශාල රික්තකයකි. සාමාන්‍යයෙන් සත්ත්ව සෛල තුළ එවැනි විශාල රික්තක දැකිය නොහැකිය.<br><br>
       ශාක සෛලවල මෙන්ම සත්ත්ව සෛලවල ද සෛලප්ලාස්මය තුළ විවිධාකාර කෘත්‍යයන් ඉටු කරන නොයෙකුත් ඉන්ද්‍රියිකා ඇත.<br><br>
-      මෙම ඉන්ද්‍රයිකා බොහොමයක් ආලෝක අණ්වීක්ෂයෙන් නිරීක්ෂණය කළ නොහැකි බැවින් ඒ සඳහා ඉලෙක්ට්‍රෝන අණ්වීක්ෂය භාවිත කළ 
-      යුතු ය.<br><br>
+      මෙම ඉන්ද්‍රයිකා බොහොමයක් ආලෝක අණ්වීක්ෂයෙන් නිරීක්ෂණය කළ නොහැකි බැවින් ඒ සඳහා ඉලෙක්ට්‍රෝන අණ්වීක්ෂය භාවිත කළ යුතු ය.<br><br>
       සෛල ඉලෙක්ට්‍රෝන අණ්වීක්ෂයෙන් නිරීක්ෂණය කිරීමෙන් ලබාගන්නා තොරතුරු පදනම් කරගනිමින් නිර්මාණය කරන ලද දර්ශීය ශාක සෛලයක හා සත්ත්ව සෛලයක රූපසටහන් පහත දැක්වේ.
     </div>
 
-    <button class="view-team-btn" onclick="window.location.href='team.html'">කණ්ඩායම</button>
+    <button class="view-team-btn" onclick="window.location.href='team.html'">කණ්ඩායම නරඹන්න</button>
   </main>
 </body>
 </html>
