@@ -57,30 +57,52 @@
     .member {
       background: #ffffff;
       border-radius: 16px;
-      padding: 20px;
+      padding: 24px;
       text-align: center;
       box-shadow: 0 12px 24px rgba(0,0,0,0.08);
-      transition: transform 0.3s;
+      transition: transform 0.3s, box-shadow 0.3s;
+      position: relative;
     }
     .member:hover {
-      transform: translateY(-5px);
+      transform: translateY(-8px);
+      box-shadow: 0 20px 30px rgba(0,0,0,0.12);
     }
     .member img {
-      width: 120px;
-      height: 120px;
+      width: 130px;
+      height: 130px;
       border-radius: 50%;
       object-fit: cover;
       margin-bottom: 16px;
       border: 4px solid #007acc;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
     }
     .member h3 {
-      margin: 10px 0 5px;
-      font-size: 1.2rem;
+      margin: 12px 0 6px;
+      font-size: 1.3rem;
       color: #007acc;
     }
     .member p {
       font-size: 0.95rem;
       color: #555;
+    }
+    .member .role {
+      font-weight: 600;
+      font-size: 1rem;
+      margin-bottom: 8px;
+      color: #444;
+    }
+    .socials {
+      margin-top: 12px;
+    }
+    .socials a {
+      display: inline-block;
+      margin: 0 8px;
+      color: #007acc;
+      font-size: 1.2rem;
+      transition: color 0.3s ease;
+    }
+    .socials a:hover {
+      color: #005f99;
     }
     @keyframes fadeIn {
       from { opacity: 0; transform: translateY(20px); }
@@ -107,6 +129,7 @@
       }
     }
   </style>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
   <header>කණ්ඩායම</header>
@@ -116,45 +139,48 @@
     <a href="more.html">තොරතුරු</a>
     <a href="team.html">කණ්ඩායම</a>
   </nav>
-   <main>
-    <div class="member">
-      <img src="data/user.jpg" alt="Dihan Dulshara">
-      <h3>Dihan Dulshara</h3>
-      <div class="role">Developer</div>
-      <p class="bio">Designed the website and the 3D model.</p>
-      <div class="socials">
-        <a href="#" title="GitHub"><i class="fab fa-github"></i></a>
-        <a href="#" title="LinkedIn"><i class="fab fa-linkedin"></i></a>
+
+  <main>
+    <div class="team-grid">
+      <div class="member">
+        <img src="data/user.jpg" alt="Dihan Dulshara">
+        <h3>Dihan Dulshara</h3>
+        <div class="role">Developer</div>
+        <p class="bio">Designed the website and the 3D model.</p>
+        <div class="socials">
+          <a href="#" title="GitHub"><i class="fab fa-github"></i></a>
+          <a href="#" title="LinkedIn"><i class="fab fa-linkedin"></i></a>
+        </div>
       </div>
-    </div>
-    <div class="member">
-      <img src="data/user.jpg" alt="Isuru Athhanayaka">
-      <h3>Isuru Athhanayaka</h3>
-      <div class="role">Designer</div>
-      <p class="bio">Fixed issues of the 3D model.</p>
-      <div class="socials">
-        <a href="https://github.com/RandomCatUser" title="GitHub"><i class="fab fa-github"></i></a>
-        <a href="#" title="LinkedIn"><i class="fab fa-linkedin"></i></a>
+      <div class="member">
+        <img src="data/user.jpg" alt="Isuru Athhanayaka">
+        <h3>Isuru Athhanayaka</h3>
+        <div class="role">Designer</div>
+        <p class="bio">Fixed issues of the 3D model.</p>
+        <div class="socials">
+          <a href="https://github.com/RandomCatUser" title="GitHub"><i class="fab fa-github"></i></a>
+          <a href="#" title="LinkedIn"><i class="fab fa-linkedin"></i></a>
+        </div>
       </div>
-    </div>
-    <div class="member">
-      <img src="data/user.jpg" alt="Chaniru Ishara">
-      <h3>Chaniru Ishara</h3>
-      <div class="role">Designer</div>
-      <p class="bio">Designed the banner and the UI/UX.</p>
-      <div class="socials">
-        <a href="#" title="GitHub"><i class="fab fa-github"></i></a>
-        <a href="#" title="LinkedIn"><i class="fab fa-linkedin"></i></a>
+      <div class="member">
+        <img src="data/user.jpg" alt="Chaniru Ishara">
+        <h3>Chaniru Ishara</h3>
+        <div class="role">Designer</div>
+        <p class="bio">Designed the banner and the UI/UX.</p>
+        <div class="socials">
+          <a href="#" title="GitHub"><i class="fab fa-github"></i></a>
+          <a href="#" title="LinkedIn"><i class="fab fa-linkedin"></i></a>
+        </div>
       </div>
-    </div>
-    <div class="member">
-      <img src="data/user.jpg" alt="Disinu Rithmitha">
-      <h3>Disinu Rithmitha</h3>
-      <div class="role">Researcher & Analyst</div>
-      <p class="bio">Collected and analyzed data.</p>
-      <div class="socials">
-        <a href="#" title="GitHub"><i class="fab fa-github"></i></a>
-        <a href="#" title="LinkedIn"><i class="fab fa-linkedin"></i></a>
+      <div class="member">
+        <img src="data/user.jpg" alt="Disinu Rithmitha">
+        <h3>Disinu Rithmitha</h3>
+        <div class="role">Researcher & Analyst</div>
+        <p class="bio">Collected and analyzed data.</p>
+        <div class="socials">
+          <a href="#" title="GitHub"><i class="fab fa-github"></i></a>
+          <a href="#" title="LinkedIn"><i class="fab fa-linkedin"></i></a>
+        </div>
       </div>
     </div>
   </main>
