@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Plant Cell 3D Model</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+    body {
+      margin: 0;
+      background: #ffffff;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      min-height: 100vh;
+      font-family: Arial, sans-serif;
+    }
+    .sketchfab-embed-wrapper {
+      width: 100vw;
+      max-width: 600px;
+      aspect-ratio: 4 / 3;
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: none;
+      margin: 12px;
+    }
+    iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+    }
+    p {
+      font-size: 13px;
+      margin: 8px 12px;
+      color: #444;
+      text-align: center;
+      max-width: 90%;
+    }
+    a {
+      font-weight: bold;
+      color: #007acc;
+      text-decoration: none;
+    }
+    a:hover {
+      text-decoration: underline;
+    }
+    .learn-button {
+      margin-top: 16px;
+      padding: 10px 20px;
+      font-size: 14px;
+      background-color: #007acc;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+    .learn-button:hover {
+      background-color: #005f99;
+    }
+    @media (min-width: 768px) {
+      .sketchfab-embed-wrapper {
+        aspect-ratio: 16 / 9;
+        max-width: 720px;
+      }
+      p {
+        font-size: 14px;
+      }
+    }
+    /* Loading screen styles */
+    #loading-screen {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: linear-gradient(135deg, #e0eafc 0%, #cfdef3 100%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      z-index: 9999;
+      transition: opacity 0.5s;
+    }
+    #loading-spinner {
+      border: 8px solid #e0eafc;
+      border-top: 8px solid #007acc;
+      border-radius: 50%;
+      width: 64px;
+      height: 64px;
+      animation: spin 1s linear infinite;
+      margin-bottom: 20px;
+    }
+    #loading-text {
+      font-size: 1.2rem;
+      color: #007acc;
+      font-weight: 600;
+      letter-spacing: 1px;
+    }
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+  </style>
+</head>
+<body>
+  <div id="loading-screen">
+    <div id="loading-spinner"></div>
+    <div id="loading-text"></div>
+  </div>
+  <div id="main-content" style="display:none;">
+    <div class="sketchfab-embed-wrapper">
+      <iframe 
+        title="Plant-cell" 
+        allowfullscreen 
+        mozallowfullscreen="true" 
+        webkitallowfullscreen="true" 
+        allow="autoplay; fullscreen" 
+        loading="lazy"
+        src="https://sketchfab.com/models/3781575c7f864aeca5e08711533a9b48/embed?autostart=1&ui_infos=0&ui_controls=0&ui_stop=0">
+      </iframe>
+    </div>
+    <p>
+      <a href="https://sketchfab.com/3d-models/plant-cell-3781575c7f864aeca5e08711533a9b48?utm_medium=embed&utm_campaign=share-popup&utm_content=3781575c7f864aeca5e08711533a9b48" target="_blank" rel="nofollow">
+        ශාක සෛලය
+      </a> by 
+      <a href="https://sketchfab.com/RandomCatUser?utm_medium=embed&utm_campaign=share-popup&utm_content=3781575c7f864aeca5e08711533a9b48" target="_blank" rel="nofollow">
+        Random Cat User
+      </a> on 
+      <a href="https://sketchfab.com?utm_medium=embed&utm_campaign=share-popup&utm_content=3781575c7f864aeca5e08711533a9b48" target="_blank" rel="nofollow">
+        Sketchfab
+      </a>
+    </p>
+    <button class="learn-button" onclick="location.href='More.html'">තව දුරටත් අධ්‍යනයට</button>
+  </div>
+  <script>
+    window.addEventListener('DOMContentLoaded', function() {
+      setTimeout(function() {
+        document.getElementById('loading-screen').style.opacity = '0';
+        setTimeout(function() {
+          document.getElementById('loading-screen').style.display = 'none';
+          document.getElementById('main-content').style.display = '';
+        }, 500);
+      }, 3000);
+    });
+  </script>
+</body>
+</html>
