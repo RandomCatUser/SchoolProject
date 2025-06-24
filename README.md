@@ -1,1 +1,1 @@
-**Schiil Project**
+**School Project**
