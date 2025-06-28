@@ -1,151 +1,456 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Plant Cell 3D Model</title>
-  <style>
-    * {
-      box-sizing: border-box;
-    }
-    body {
-      margin: 0;
-      background: #ffffff;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      flex-direction: column;
-      min-height: 100vh;
-      font-family: Arial, sans-serif;
-    }
-    .sketchfab-embed-wrapper {
-      width: 100vw;
-      max-width: 600px;
-      aspect-ratio: 4 / 3;
-      border-radius: 8px;
-      overflow: hidden;
-      box-shadow: none;
-      margin: 12px;
-    }
-    iframe {
-      width: 100%;
-      height: 100%;
-      border: none;
-    }
-    p {
-      font-size: 13px;
-      margin: 8px 12px;
-      color: #444;
-      text-align: center;
-      max-width: 90%;
-    }
-    a {
-      font-weight: bold;
-      color: #007acc;
-      text-decoration: none;
-    }
-    a:hover {
-      text-decoration: underline;
-    }
-    .learn-button {
-      margin-top: 16px;
-      padding: 10px 20px;
-      font-size: 14px;
-      background-color: #007acc;
-      color: white;
-      border: none;
-      border-radius: 6px;
-      cursor: pointer;
-      transition: background-color 0.3s ease;
-    }
-    .learn-button:hover {
-      background-color: #005f99;
-    }
-    @media (min-width: 768px) {
-      .sketchfab-embed-wrapper {
-        aspect-ratio: 16 / 9;
-        max-width: 720px;
-      }
-      p {
-        font-size: 14px;
-      }
-    }
-    /* Loading screen styles */
-    #loading-screen {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100vw;
-      height: 100vh;
-      background: linear-gradient(135deg, #e0eafc 0%, #cfdef3 100%);
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      z-index: 9999;
-      transition: opacity 0.5s;
-    }
-    #loading-spinner {
-      border: 8px solid #e0eafc;
-      border-top: 8px solid #007acc;
-      border-radius: 50%;
-      width: 64px;
-      height: 64px;
-      animation: spin 1s linear infinite;
-      margin-bottom: 20px;
-    }
-    #loading-text {
-      font-size: 1.2rem;
-      color: #007acc;
-      font-weight: 600;
-      letter-spacing: 1px;
-    }
-    @keyframes spin {
-      0% { transform: rotate(0deg); }
-      100% { transform: rotate(360deg); }
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>School Project</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f8fafc; /* Very light gray/off-white */
+            color: #374151; /* Darker gray for general text */
+        }
+
+        /* Custom scrollbar for better aesthetics */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #e0e0e0;
+            border-radius: 10px;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #888;
+            border-radius: 10px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #555;
+        }
+
+        /* Style for the Sketchfab iframe container to ensure responsiveness and aspect ratio */
+        .sketchfab-embed-wrapper {
+            position: relative;
+            width: 100%;
+            padding-bottom: 56.25%; /* 16:9 Aspect Ratio */
+            height: 0;
+            overflow: hidden;
+            border-radius: 0.5rem; /* rounded-lg */
+            box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05); /* shadow-sm */
+        }
+
+        .sketchfab-embed-wrapper iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: 0;
+        }
+        /* Style for video container */
+        .video-container {
+            position: relative;
+            width: 100%;
+            padding-bottom: 56.25%; /* 16:9 Aspect Ratio */
+            height: 0;
+            overflow: hidden;
+            border-radius: 0.5rem; /* rounded-lg */
+            box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05); /* shadow-sm */
+        }
+
+        .video-container video {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover; /* Ensures video covers the area without distorting aspect ratio */
+            border-radius: 0.5rem; /* rounded-lg */
+        }
+    </style>
 </head>
-<body>
-  <div id="loading-screen">
-    <div id="loading-spinner"></div>
-    <div id="loading-text"></div>
-  </div>
-  <div id="main-content" style="display:none;">
-    <div class="sketchfab-embed-wrapper">
-      <iframe 
-        title="Plant-cell" 
-        allowfullscreen 
-        mozallowfullscreen="true" 
-        webkitallowfullscreen="true" 
-        allow="autoplay; fullscreen" 
-        loading="lazy"
-        src="https://sketchfab.com/models/3781575c7f864aeca5e08711533a9b48/embed?autostart=1&ui_infos=0&ui_controls=0&ui_stop=0">
-      </iframe>
+<body class="flex flex-col min-h-screen">
+
+    <!-- Main container for the layout -->
+    <div class="flex flex-1 flex-col md:flex-row bg-white shadow-lg rounded-lg m-4 overflow-hidden">
+
+        <!-- Sidebar Navigation -->
+        <aside class="w-full md:w-64 bg-gray-100 p-6 flex flex-col items-center border-b md:border-r border-gray-200">
+            <div class="mb-6 text-center">
+                <!-- Placeholder for logo - you can replace this with an actual SVG or image -->
+                <div class="w-24 h-24 bg-purple-200 rounded-full flex items-center justify-center mb-2 mx-auto overflow-hidden">
+                    <img src="image1.png" alt="School Project Logo" class="w-20 h-20 object-cover rounded-full" />
+                </div>
+                <h1 class="text-2xl font-bold text-gray-900">School Project</h1>
+                <p class="text-sm text-gray-500 mt-1">Current Version 1.0.0</p>
+            </div>
+
+            <nav class="w-full">
+                <ul>
+                    <li class="mb-2">
+                        <!-- 'Home' button -->
+                        <a href="#" id="nav-home" data-section="home" class="flex items-center p-3 rounded-lg bg-purple-500 text-white shadow-md">
+                            <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path></svg>
+                            Home
+                        </a>
+                    </li>
+                    <li class="mb-2">
+                        <!-- 'Files' button -->
+                        <a href="#" id="nav-files" data-section="files" class="flex items-center p-3 rounded-lg text-gray-700 hover:bg-purple-100 hover:text-purple-700 transition-all duration-200">
+                            <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
+                            Files
+                        </a>
+                    </li>
+                    <li class="mb-2">
+                        <!-- 'Videos' button -->
+                        <a href="#" id="nav-videos" data-section="videos" class="flex items-center p-3 rounded-lg text-gray-700 hover:bg-purple-100 hover:text-purple-700 transition-all duration-200">
+                            <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 10l4-4V6a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2h14a2 2 0 002-2v-4l-4-4z"></path></svg>
+                            Videos
+                        </a>
+                    </li>
+                    <li class="mb-2">
+                        <!-- 'Documentation' button -->
+                        <a href="#" id="nav-documentation" data-section="documentation" class="flex items-center p-3 rounded-lg text-gray-700 hover:bg-purple-100 hover:text-purple-700 transition-all duration-200">
+                            <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13l2-2m-2 2l-2-2m2 2V9.586a1 1 0 00-.293-.707l-4.586-4.586A1 2 0 0015.414 4H17.5a2 2 0 012 2v10.5M2 12h2m-2 4h2m4-4h2m4-4h2m-4 4h2m-4 4h2"></path></svg>
+                            Documentation
+                        </a>
+                    </li>
+                    <li class="mb-2">
+                        <!-- '3D Model' button -->
+                        <a href="#" id="nav-3d-model" data-section="3d-model" class="flex items-center p-3 rounded-lg text-gray-700 hover:bg-purple-100 hover:text-purple-700 transition-all duration-200">
+                            <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0zM12 7v5l3 3"></path></svg>
+                            3D Model
+                        </a>
+                    </li>
+                    <li class="mb-2">
+                        <!-- 'Team' button (formerly 'About') -->
+                        <a href="#" id="nav-team" data-section="team" class="flex items-center p-3 rounded-lg text-gray-700 hover:bg-purple-100 hover:text-purple-700 transition-all duration-200">
+                            <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h2a2 2 0 002-2V7a2 2 0 00-2-2h-3m-6 4H8m0 0a2 2 0 100 4m0-4v4m0-4H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-3m-6 0a2 2 0 100 4m0-4v4"></path></svg>
+                            Team
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </aside>
+
+        <!-- Main Content Area -->
+        <main id="main-content" class="flex-1 p-6 md:p-10">
+            <h2 id="content-title" class="text-3xl font-extrabold text-gray-900 mb-6 border-b-2 border-purple-300 pb-2">Home</h2>
+
+            <div id="content-body" class="space-y-4">
+                <!-- Content will be dynamically loaded here by JavaScript -->
+            </div>
+        </main>
     </div>
-    <p>
-      <a href="https://sketchfab.com/3d-models/plant-cell-3781575c7f864aeca5e08711533a9b48?utm_medium=embed&utm_campaign=share-popup&utm_content=3781575c7f864aeca5e08711533a9b48" target="_blank" rel="nofollow">
-        ශාක සෛලය
-      </a> by 
-      <a href="https://sketchfab.com/RandomCatUser?utm_medium=embed&utm_campaign=share-popup&utm_content=3781575c7f864aeca5e08711533a9b48" target="_blank" rel="nofollow">
-        Random Cat User
-      </a> on 
-      <a href="https://sketchfab.com?utm_medium=embed&utm_campaign=share-popup&utm_content=3781575c7f864aeca5e08711533a9b48" target="_blank" rel="nofollow">
-        Sketchfab
-      </a>
-    </p>
-    <button class="learn-button" onclick="location.href='more.html'">තව දුරටත් අධ්‍යනයට</button>
-  </div>
-  <script>
-    window.addEventListener('DOMContentLoaded', function() {
-      setTimeout(function() {
-        document.getElementById('loading-screen').style.opacity = '0';
-        setTimeout(function() {
-          document.getElementById('loading-screen').style.display = 'none';
-          document.getElementById('main-content').style.display = '';
-        }, 500);
-      }, 3000);
-    });
-  </script>
+
+    <script>
+        // Get references to main elements
+        const mainContent = document.getElementById('main-content');
+        const contentTitle = document.getElementById('content-title');
+        const contentBody = document.getElementById('content-body');
+        const navLinks = document.querySelectorAll('nav a'); // Get all navigation links
+
+        // Define content for each section
+        const sectionsContent = {
+            home: {
+                title: 'Welcome to School Project',
+                body: `
+                    <div class="p-6 bg-green-50 rounded-lg shadow-sm">
+                        <h3 class="text-xl font-semibold text-green-800 mb-3">Project Overview</h3>
+                        <p class="text-gray-700 leading-relaxed mb-4">
+                            This repository contains the code and documentation for our school project, aimed at creating an interactive educational web platform.
+                            It's designed to be a comprehensive resource for understanding the project's goals, technical implementation, and usage.
+                        </p>
+                        <h4 class="text-lg font-semibold text-green-700 mb-2">Why This Project?</h4>
+                        <p class="text-gray-700 leading-relaxed">
+                            The primary motivation behind this project is to enhance learning experiences through engaging digital content. We believe that
+                            interactive elements, such as 3D models, can significantly improve comprehension and retention of complex scientific concepts.
+                            This project serves as a practical application of our web development skills while contributing to a more dynamic educational environment.
+                        </p>
+                    </div>
+                    <div class="mt-6 p-6 bg-yellow-50 rounded-lg shadow-sm">
+                        <h3 class="text-xl font-semibold text-yellow-800 mb-3">Key Features:</h3>
+                        <ul class="list-disc list-inside text-gray-700 space-y-2">
+                            <li>Interactive 3D model display for biological structures.</li>
+                            <li>Comprehensive documentation and project details.</li>
+                            <li>Responsive design for optimal viewing on all devices.</li>
+                            <li>Multi-language support for key educational content (e.g., Sinhala).</li>
+                            <li>Integrated video content for visual learning.</li>
+                        </ul>
+                    </div>
+                `
+            },
+            files: {
+                title: 'Project Files',
+                body: `
+                    <div class="space-y-4">
+                        <div class="bg-purple-50 p-4 rounded-lg shadow-sm flex items-center justify-between transition-all duration-200 hover:shadow-md hover:bg-purple-100">
+                            <a href="https://github.com/RandomCatUser/SchoolProject/archive/refs/heads/main.zip" class="text-lg font-medium text-purple-700 flex-1">
+                                Download SchoolProject v1.0.0 (main branch)
+                            </a>
+                            <svg class="w-6 h-6 text-purple-600 ml-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01"></path></svg>
+                        </div>
+                        <div class="bg-purple-50 p-4 rounded-lg shadow-sm flex items-center justify-between transition-all duration-200 hover:shadow-md hover:bg-purple-100">
+                            <a href="https://github.com/RandomCatUser/SchoolProject/archive/refs/heads/development.zip" class="text-lg font-medium text-purple-700 flex-1">
+                                Download SchoolProject v0.9.0 (development branch)
+                            </a>
+                            <svg class="w-6 h-6 text-purple-600 ml-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01"></path></svg>
+                        </div>
+                        <div class="bg-purple-50 p-4 rounded-lg shadow-sm flex items-center justify-between transition-all duration-200 hover:shadow-md hover:bg-purple-100">
+                            <a href="https://github.com/RandomCatUser/SchoolProject" class="text-lg font-medium text-purple-700 flex-1" target="_blank" rel="noopener noreferrer">
+                                View Repository on GitHub
+                            </a>
+                            <svg class="w-6 h-6 text-purple-600 ml-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
+                        </div>
+                    </div>
+                `
+            },
+            videos: {
+                title: 'Project Videos',
+                body: `
+                    <div class="bg-red-50 p-6 rounded-lg shadow-sm text-center">
+                        <p class="text-gray-700 leading-relaxed mb-4">
+                            Watch short video clip to see plantcells under the microsocope.
+                        </p>
+                        <div class="video-container mx-auto max-w-2xl">
+                            <video controls loop playsinline>
+                                <!-- Replace 'video.mp4' with the actual path to your video file -->
+                                <source src="video.mp4" type="video/mp4">
+                                Your browser does not support the video tag.
+                            </video>
+                            <div class="mt-2 text-center">
+                                <a href="video.mp4" download class="inline-block bg-purple-500 hover:bg-purple-600 text-white font-semibold py-2 px-4 rounded-lg shadow transition-all duration-200">
+                                    Download Video
+                                </a>
+                            </div>
+                        </div>
+                        <p class="text-sm text-gray-600 mt-4">
+                            Copright!, Video From Youtube.
+                        </p>
+                    </div>
+                `
+            },
+            documentation: {
+                title: 'Project Documentation',
+                body: `
+                    <div id="plant-cell-details-container" class="bg-blue-50 p-6 rounded-lg shadow-sm mt-6">
+                        <h3 class="text-xl font-semibold text-blue-800 mb-3">A Plant Cell: Details</h3>
+                        <div id="plant-cell-text-content">
+                            <!-- Plant cell details will be loaded here -->
+                        </div>
+                        <button id="translate-plant-cell-button" class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-lg shadow-md transition-all duration-200 mt-4">
+                            Translate to Sinhala
+                        </button>
+                    </div>
+                    <div class="mt-6 p-6 bg-indigo-50 rounded-lg shadow-sm">
+                        <h3 class="text-xl font-semibold text-indigo-800 mb-3">Contribution Guidelines:</h3>
+                        <p class="text-gray-700">
+                            Interested in contributing? Read our <a href="https://github.com/RandomCatUser/SchoolProject/blob/main/CONTRIBUTING.md" class="text-indigo-600 hover:underline font-medium" target="_blank" rel="noopener noreferrer">contribution guidelines</a>
+                            to get started.
+                        </p>
+                    </div>
+                `,
+                plantCellOriginal: `
+                    <p class="text-gray-700 leading-relaxed mb-4">
+                        Plant cells are the basic unit of life in organisms of the kingdom Plantae. They are eukaryotic cells, meaning they have a true nucleus and specialized organelles.
+                    </p>
+                    <h4 class="text-lg font-semibold text-blue-700 mb-2">Key Components:</h4>
+                    <ul class="list-disc list-inside text-gray-700 space-y-1">
+                        <li>**Cell Wall:** A rigid outer layer that provides structural support and protection to the plant cell.</li>
+                        <li>**Cell Membrane:** Controls the movement of substances into and out of the cell.</li>
+                        <li>**Nucleus:** Contains the cell's genetic material (DNA) and controls cell activities.</li>
+                        <li>**Chloroplasts:** Sites of photosynthesis, where light energy is converted into chemical energy.</li>
+                        <li>**Large Central Vacuole:** Stores water, nutrients, and waste products, and maintains turgor pressure.</li>
+                        <li>**Mitochondria:** Generate energy (ATP) through cellular respiration.</li>
+                        <li>**Cytoplasm:** The jelly-like substance that fills the cell and surrounds the organelles.</li>
+                    </ul>
+                `,
+                plantCellTranslated: `
+                    <p class="text-gray-700 leading-relaxed mb-4">
+                        ශාක සෛල යනු Plantae රාජධානියේ ජීවීන්ගේ මූලික ජීව ඒකකයයි. ඒවා සත්‍ය න්‍යෂ්ටියක් සහ විශේෂිත ඉන්ද්‍රියයන් සහිත යුකැරියෝටික් සෛල වේ.
+                    </p>
+                    <h4 class="text-lg font-semibold text-blue-700 mb-2">ප්‍රධාන කොටස්:</h4>
+                    <ul class="list-disc list-inside text-gray-700 space-y-1">
+                        <li>**සෛල බිත්තිය:** ශාක සෛලයට ව්‍යූහාත්මක ආධාරක සහ ආරක්ෂාව සපයන දෘඩ පිටත ස්ථරයකි.</li>
+                        <li>**සෛල පටලය:** සෛලයට ඇතුළුවීම සහ පිටවීම පාලනය කරයි.</li>
+                        <li>**න්‍යෂ්ටිය:** සෛලයේ ජානමය ද්‍රව්‍ය (DNA) අඩංගු වන අතර සෛල ක්‍රියාකාරකම් පාලනය කරයි.</li>
+                        <li>**හරිතප්‍රද:** ප්‍රභාසංශ්ලේෂණයේ ස්ථාන, ආලෝක ශක්තිය රසායනික ශක්තිය බවට පරිවර්තනය කරයි.</li>
+                        <li>**විශාල මධ්‍යම රික්තකය:** ජලය, පෝෂ්‍ය පදාර්ථ සහ අපද්‍රව්‍ය ගබඩා කරන අතර ටර්ගර් පීඩනය පවත්වා ගනී.</li>
+                        <li>**මයිටොකොන්ඩ්‍රියා:** සෛල ශ්වසනය හරහා ශක්තිය (ATP) ජනනය කරයි.</li>
+                        <li>**සයිටොප්ලාස්මය:** සෛලය පුරවන සහ ඉන්ද්‍රියයන් වටා ඇති ජෙලි වැනි ද්‍රව්‍යයකි.</li>
+                    </ul>
+                `
+            },
+            '3d-model': {
+                title: 'A Plant Cell (3D Model)',
+                body: `
+                    <div class="bg-blue-50 p-6 rounded-lg shadow-sm text-center">
+                        <p class="text-gray-700 leading-relaxed mb-4">
+                            Explore an interactive 3D model of a plant cell.
+                        </p>
+                        <div class="sketchfab-embed-wrapper">
+                            <iframe
+                                title="Plant-cell"
+                                allowfullscreen
+                                mozallowfullscreen="true"
+                                webkitallowfullscreen="true"
+                                allow="autoplay; fullscreen; xr-spatial-tracking"
+                                src="https://sketchfab.com/models/3781575c7f864aeca5e08711533a9b48/embed?autostart=1&ui_infos=0&ui_controls=1&ui_stop=0&ui_inspector=0&ui_watermark=0">
+                            </iframe>
+                        </div>
+                        <p class="text-sm text-gray-600 mt-4">
+                            Model courtesy of <a href="https://sketchfab.com/sketchfabulous" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:underline">Sketchfab</a>.
+                            For detailed information about the plant cell's components and functions, please refer to the <a href="#" data-section="documentation" class="text-purple-600 hover:underline font-medium">Documentation</a> section.
+                        </p>
+                    </div>
+                `
+            },
+            team: { // Renamed from 'about' to 'team'
+                title: 'Our Team & Project', // Updated title
+                body: `
+                    <div class="p-6 bg-gray-50 rounded-lg shadow-sm">
+                        <h3 class="text-xl font-semibold text-gray-900 mb-3 text-center">Project Goal:</h3>
+                        <p class="text-gray-700 leading-relaxed mb-6 text-center">
+                        This Project Was Disigned By These Guys! See Who It Is.
+                        </p>
+                        <h3 class="text-xl font-semibold text-gray-900 mb-6 text-center">Meet the Team:</h3>
+                        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 justify-items-center">
+                            <!-- Team Member: RandomCatUser -->
+                            <div class="bg-white p-6 rounded-lg shadow-md flex flex-col items-center text-center w-full max-w-sm border-t-4 border-purple-500 border border-purple-200 hover:shadow-lg transition-shadow duration-200">
+                                <img src="https://placehold.co/96x96/a78bfa/ffffff?text=DR" alt="Contributor Profile" class="rounded-full mx-auto mb-4 border-4 border-purple-300 shadow-sm w-24 h-24">
+                                <h4 class="text-lg font-medium text-gray-900 mb-1">Dihan Dulashara</h4>
+                                <p class="text-purple-600 text-sm font-semibold mb-2">Lead Developer</p>
+                                <p class="text-gray-700 text-sm leading-relaxed mb-3">
+                                    Responsible for overall architecture, frontend/backend integration, and 3D model implementation.
+                                </p>
+                                <a href="https://github.com/RandomCatUser" class="text-blue-500 hover:text-blue-700 transition-colors duration-200 flex items-center justify-center text-sm" target="_blank" rel="noopener noreferrer">
+                                    <svg class="w-4 h-4 mr-1" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.498.09.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.529 2.341 1.084 2.91.829.091-.644.359-1.084.65-1.334-2.22-.253-4.555-1.113-4.555-4.93 0-1.091.39-1.984 1.029-2.675-.103-.253-.446-1.266.095-2.642 0 0 .84-.27 2.75 1.025A9.564 9.564 0 0112 6.844c.85.004 1.701.118 2.503.324 1.909-1.296 2.747-1.025 2.747-1.025.546 1.376.202 2.389.096 2.642.64.691 1.028 1.584 1.028 2.675 0 3.822-2.339 4.67-4.566 4.922.37.318.675.901.675 1.823 0 1.33-.012 2.412-.012 2.746 0 .267.185.577.688.48C19.167 20.204 22 16.447 22 12.017 22 6.484 17.522 2 12 2Z" clip-rule="evenodd" /></svg>
+                                    GitHub Profile
+                                </a>
+                            </div>
+                      
+                            <!-- Team Member: Isuru Aththanayaka -->
+                            <div class="bg-white p-6 rounded-lg shadow-md flex flex-col items-center text-center w-full max-w-sm border-t-4 border-purple-500 border border-purple-200 hover:shadow-lg transition-shadow duration-200">
+                                <img src="https://placehold.co/96x96/a78bfa/ffffff?text=IA" alt="Isuru Aththanayaka Profile" class="rounded-full mx-auto mb-4 border-4 border-purple-300 shadow-sm w-24 h-24">
+                                <h4 class="text-lg font-medium text-gray-900 mb-1">Isuru Aththanayaka</h4>
+                                <p class="text-purple-600 text-sm font-semibold mb-2">Content</p>
+                                <p class="text-gray-700 text-sm leading-relaxed mb-3">
+                                    Responsible for content accuracy, research, and ensuring the quality of the application through rigorous testing.
+                                </p>
+                                <!-- Optional: Add GitHub/LinkedIn/Profile link -->
+                            </div>
+
+                            <!-- Team Member: Chaniru Ishara -->
+                            <div class="bg-white p-6 rounded-lg shadow-md flex flex-col items-center text-center w-full max-w-sm border-t-4 border-purple-500 border border-purple-200 hover:shadow-lg transition-shadow duration-200">
+                                <img src="https://placehold.co/96x96/a78bfa/ffffff?text=CI" alt="Chaniru Ishara Profile" class="rounded-full mx-auto mb-4 border-4 border-purple-300 shadow-sm w-24 h-24">
+                                <h4 class="text-lg font-medium text-gray-900 mb-1">Chaniru Ishara</h4>
+                                <p class="text-purple-600 text-sm font-semibold mb-2">Content of the prsentation</p>
+                                <p class="text-gray-700 text-sm leading-relaxed mb-3">
+                                    Design Assests Need For Prsentation and etc
+                                </p>
+                                <!-- Optional: Add GitHub/LinkedIn/Profile link -->
+                            </div>
+
+                            <!-- Team Member: Disinu Rithmitha -->
+                            <div class="bg-white p-6 rounded-lg shadow-md flex flex-col items-center text-center w-full max-w-sm border-t-4 border-purple-500 border border-purple-200 hover:shadow-lg transition-shadow duration-200">
+                                <img src="https://placehold.co/96x96/a78bfa/ffffff?text=DR" alt="Disinu Rithmitha Profile" class="rounded-full mx-auto mb-4 border-4 border-purple-300 shadow-sm w-24 h-24">
+                                <h4 class="text-lg font-medium text-gray-900 mb-1">Disinu Rithmitha</h4>
+                                <p class="text-purple-600 text-sm font-semibold mb-2">Asset & Presentation Support</p>
+                                <p class="text-gray-700 text-sm leading-relaxed mb-3">
+                                    Manages digital assets, assists with presentation materials, and contributes to overall project testing.
+                                </p>
+                                <!-- Optional: Add GitHub/LinkedIn/Profile link -->
+                            </div>
+                        </div>
+                    </div>
+                `
+            }
+        };
+
+        // Function to load content based on sectionId
+        async function loadSection(sectionId) {
+            // Remove active class from all links
+            navLinks.forEach(link => {
+                link.classList.remove('bg-purple-500', 'text-white', 'shadow-md');
+                // Ensure proper inactive state classes are applied
+                link.classList.add('text-gray-700', 'hover:bg-purple-100', 'hover:text-purple-700');
+            });
+
+            // Add active class to the clicked link
+            const activeLink = document.querySelector(`[data-section="${sectionId}"]`);
+            if (activeLink) {
+                // Remove inactive state classes
+                activeLink.classList.remove('text-gray-700', 'hover:bg-purple-100', 'hover:text-purple-700');
+                // Add base active classes
+                activeLink.classList.add('bg-purple-500', 'text-white', 'shadow-md');
+            }
+
+            // Update the main content area
+            const sectionData = sectionsContent[sectionId];
+            if (sectionData) {
+                contentTitle.textContent = sectionData.title;
+                contentBody.innerHTML = sectionData.body; // Load the main body first
+
+                // Handle specific setup for the documentation section if it contains translatable content
+                if (sectionId === 'documentation') {
+                    const plantCellTextContent = document.getElementById('plant-cell-text-content');
+                    const translateButton = document.getElementById('translate-plant-cell-button');
+
+                    // Display original English content initially for plant cell details
+                    if (plantCellTextContent) {
+                        plantCellTextContent.innerHTML = sectionsContent.documentation.plantCellOriginal;
+                    }
+
+                    if (translateButton) {
+                        // Current state tracking
+                        let isTranslated = false;
+
+                        const updatePlantCellContent = () => {
+                            if (isTranslated) {
+                                plantCellTextContent.innerHTML = sectionsContent.documentation.plantCellTranslated;
+                                translateButton.textContent = 'View in English';
+                            } else {
+                                plantCellTextContent.innerHTML = sectionsContent.documentation.plantCellOriginal;
+                                translateButton.textContent = 'Translate to Sinhala';
+                            }
+                        };
+
+                        // Initial display based on current state (important for re-visiting section)
+                        updatePlantCellContent();
+
+                        translateButton.onclick = () => {
+                            isTranslated = !isTranslated; // Toggle state
+                            updatePlantCellContent(); // Update content and button text
+                            translateButton.disabled = false; // Ensure button is enabled after toggle
+                        };
+                    }
+                }
+            } else {
+                // Fallback for unknown sections
+                contentTitle.textContent = 'Page Not Found';
+                contentBody.innerHTML = `
+                    <div class="p-6 bg-red-100 rounded-lg shadow-sm text-red-700">
+                        <p>Sorry, the content for this section could not be loaded.</p>
+                    </div>
+                `;
+            }
+        }
+
+        // Add click event listeners to all navigation links
+        navLinks.forEach(link => {
+            link.addEventListener('click', function(event) {
+                event.preventDefault(); // Prevent default link behavior (page reload)
+                const sectionId = this.getAttribute('data-section');
+                loadSection(sectionId);
+            });
+        });
+
+        // Load the 'home' section by default on page load
+        document.addEventListener('DOMContentLoaded', () => {
+            loadSection('home');
+        });
+    </script>
 </body>
 </html>
