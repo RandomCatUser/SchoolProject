@@ -10,72 +10,145 @@
     <style>
         body {
             font-family: 'Inter', sans-serif;
-            background-color: #f8fafc; /* Very light gray/off-white */
-            color: #374151; /* Darker gray for general text */
+            background-color: #f8fafc;
+            color: #374151;
         }
-
-        /* Custom scrollbar for better aesthetics */
-        ::-webkit-scrollbar {
-            width: 8px;
+        body.dark {
+            background-color: #18181b;
+            color: #e5e7eb;
         }
-        ::-webkit-scrollbar-track {
-            background: #e0e0e0;
-            border-radius: 10px;
-        }
-        ::-webkit-scrollbar-thumb {
-            background: #888;
-            border-radius: 10px;
-        }
-        ::-webkit-scrollbar-thumb:hover {
-            background: #555;
-        }
-
-        /* Style for the Sketchfab iframe container to ensure responsiveness and aspect ratio */
-        .sketchfab-embed-wrapper {
-            position: relative;
-            width: 100%;
-            padding-bottom: 56.25%; /* 16:9 Aspect Ratio */
-            height: 0;
-            overflow: hidden;
-            border-radius: 0.5rem; /* rounded-lg */
-            box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05); /* shadow-sm */
-        }
-
-        .sketchfab-embed-wrapper iframe {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            border: 0;
-        }
-        /* Style for video container */
-        .video-container {
-            position: relative;
-            width: 100%;
-            padding-bottom: 56.25%; /* 16:9 Aspect Ratio */
-            height: 0;
-            overflow: hidden;
-            border-radius: 0.5rem; /* rounded-lg */
-            box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05); /* shadow-sm */
-        }
-
-        .video-container video {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            object-fit: cover; /* Ensures video covers the area without distorting aspect ratio */
-            border-radius: 0.5rem; /* rounded-lg */
-        }
+        .dark .bg-white { background-color: #23232a !important; }
+        .dark .bg-gray-50 { background-color: #23232a !important; }
+        .dark .bg-gray-100 { background-color: #23232a !important; }
+        .dark .bg-green-50 { background-color: #1e293b !important; }
+        .dark .bg-yellow-50 { background-color: #2d2a1e !important; }
+        .dark .bg-purple-50 { background-color: #2e1e3a !important; }
+        .dark .bg-red-50 { background-color: #3a1e2e !important; }
+        .dark .bg-blue-50 { background-color: #1e293b !important; }
+        .dark .bg-indigo-50 { background-color: #23233a !important; }
+        .dark .text-gray-900 { color: #f3f4f6 !important; }
+        .dark .text-gray-700 { color: #d1d5db !important; }
+        .dark .text-gray-500 { color: #a1a1aa !important; }
+        .dark .text-purple-700 { color: #c4b5fd !important; }
+        .dark .text-purple-600 { color: #a78bfa !important; }
+        .dark .text-blue-700 { color: #60a5fa !important; }
+        .dark .text-blue-800 { color: #3b82f6 !important; }
+        .dark .text-yellow-800 { color: #fde68a !important; }
+        .dark .text-indigo-800 { color: #818cf8 !important; }
+        .dark .border-gray-200 { border-color: #27272a !important; }
+        .dark .border-purple-200 { border-color: #a78bfa !important; }
+        .dark .border-purple-300 { border-color: #c4b5fd !important; }
+        .dark .shadow-lg, .dark .shadow-md, .dark .shadow-sm { box-shadow: 0 2px 8px 0 rgba(0,0,0,0.7) !important; }
+        .dark .hover\:bg-purple-100:hover { background-color: #3b2f4a !important; }
+        .dark .bg-purple-500 { background-color: #7c3aed !important; }
+        .dark .text-white { color: #fff !important; }
+        .dark .text-red-700 { color: #fca5a5 !important; }
+        .dark .text-blue-600 { color: #60a5fa !important; }
+        .dark .text-purple-600 { color: #a78bfa !important; }
+        .dark .text-indigo-600 { color: #818cf8 !important; }
+        .dark .text-purple-900 { color: #ede9fe !important; }
+        .dark .text-green-800 { color: #bbf7d0 !important; }
+        .dark .text-green-700 { color: #6ee7b7 !important; }
+        .dark .border-t-4 { border-top-width: 4px !important; }
+        .dark .border { border-width: 1px !important; }
+        .dark .rounded-lg { border-radius: 0.5rem !important; }
+        .dark .hover\:text-purple-700:hover { color: #c4b5fd !important; }
+        .dark .hover\:underline:hover { text-decoration: underline !important; }
+        .dark .bg-purple-200 { background-color: #a78bfa !important; }
+        .dark .border-purple-300 { border-color: #c4b5fd !important; }
+        .dark .border-purple-500 { border-color: #7c3aed !important; }
+        .dark .bg-purple-100 { background-color: #ede9fe !important; }
+        .dark .bg-indigo-50 { background-color: #23233a !important; }
+        .dark .bg-blue-50 { background-color: #1e293b !important; }
+        .dark .bg-red-100 { background-color: #3a1e2e !important; }
+        .dark .text-indigo-800 { color: #818cf8 !important; }
+        .dark .text-indigo-600 { color: #818cf8 !important; }
+        .dark .text-purple-500 { color: #a78bfa !important; }
+        .dark .text-purple-700 { color: #c4b5fd !important; }
+        .dark .text-yellow-800 { color: #fde68a !important; }
+        .dark .text-green-800 { color: #bbf7d0 !important; }
+        .dark .text-green-700 { color: #6ee7b7 !important; }
+        .dark .text-blue-800 { color: #3b82f6 !important; }
+        .dark .text-blue-700 { color: #60a5fa !important; }
+        .dark .text-blue-600 { color: #60a5fa !important; }
+        .dark .text-red-700 { color: #fca5a5 !important; }
+        .dark .text-gray-600 { color: #a1a1aa !important; }
+        /* Theme Switch */
+        .switch {
+  font-size: 17px;
+  position: relative;
+  display: inline-block;
+  width: 4em;
+  height: 2.2em;
+  border-radius: 30px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #2a2a2a;
+  transition: 0.4s;
+  border-radius: 30px;
+  overflow: hidden;
+}
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 1.2em;
+  width: 1.2em;
+  border-radius: 20px;
+  left: 0.5em;
+  bottom: 0.5em;
+  transition: 0.4s;
+  transition-timing-function: cubic-bezier(0.81, -0.04, 0.38, 1.5);
+  box-shadow: inset 8px -4px 0px 0px #fff;
+}
+.switch input:checked + .slider {
+  background-color: #00a6ff;
+}
+.switch input:checked + .slider:before {
+  transform: translateX(1.8em);
+  box-shadow: inset 15px -4px 0px 15px #ffcf48;
+}
+.star {
+  background-color: #fff;
+  border-radius: 50%;
+  position: absolute;
+  width: 5px;
+  transition: all 0.4s;
+  height: 5px;
+}
+.star_1 { left: 2.5em; top: 0.5em; }
+.star_2 { left: 2.2em; top: 1.2em; }
+.star_3 { left: 3em; top: 0.9em; }
+.switch input:checked ~ .slider .star {
+  opacity: 0;
+}
+.cloud {
+  width: 3.5em;
+  position: absolute;
+  bottom: -1.4em;
+  left: -1.1em;
+  opacity: 0;
+  transition: all 0.4s;
+}
+.switch input:checked ~ .slider .cloud {
+  opacity: 1;
+}
     </style>
 </head>
 <body class="flex flex-col min-h-screen">
-
     <!-- Main container for the layout -->
     <div class="flex flex-1 flex-col md:flex-row bg-white shadow-lg rounded-lg m-4 overflow-hidden">
-
         <!-- Sidebar Navigation -->
         <aside class="w-full md:w-64 bg-gray-100 p-6 flex flex-col items-center border-b md:border-r border-gray-200">
             <div class="mb-6 text-center">
@@ -84,7 +157,21 @@
                     <img src="image1.png" alt="School Project Logo" class="w-20 h-20 object-cover rounded-full" />
                 </div>
                 <h1 class="text-2xl font-bold text-gray-900">School Project</h1>
-                <p class="text-sm text-gray-500 mt-1">Current Version 6.29.25</p>
+                <p class="text-sm text-gray-500 mt-1">Finding Network 6.30.25</p>
+                <!-- Theme Switcher Switch -->
+                <div class="flex items-center justify-center mt-4">
+                    <span class="mr-2 text-gray-700 text-sm">Light</span>
+                    <label class="switch">
+        <input type="checkbox" id="sidebar-theme-switch">
+        <span class="slider">
+            <span class="star star_1"></span>
+            <span class="star star_2"></span>
+            <span class="star star_3"></span>
+            <svg class="cloud" viewBox="0 0 64 32"><ellipse cx="32" cy="24" rx="32" ry="8" fill="#fff" opacity="0.7"/></svg>
+        </span>
+    </label>
+                    <span class="ml-2 text-gray-700 text-sm">Dark</span>
+                </div>
             </div>
 
             <nav class="w-full">
@@ -144,8 +231,37 @@
             </div>
         </main>
     </div>
-
     <script>
+        // Theme toggle logic with animation
+        const sidebarThemeSwitch = document.getElementById('sidebar-theme-switch');
+        const themeIcon = document.getElementById('theme-icon');
+        const iconSun = document.getElementById('icon-sun');
+        const iconMoon = document.getElementById('icon-moon');
+        const themeText = document.getElementById('theme-text');
+
+        // Set default to light mode
+        function setTheme(mode, animate = false) {
+            if (mode === 'dark') {
+                document.body.classList.add('dark');
+                if (sidebarThemeSwitch) sidebarThemeSwitch.checked = true;
+            } else {
+                document.body.classList.remove('dark');
+                if (sidebarThemeSwitch) sidebarThemeSwitch.checked = false;
+            }
+        }
+        setTheme('light');
+
+        // Switch event
+        if (sidebarThemeSwitch) {
+            sidebarThemeSwitch.addEventListener('change', function () {
+                if (this.checked) {
+                    setTheme('dark', true);
+                } else {
+                    setTheme('light', true);
+                }
+            });
+        }
+
         // Get references to main elements
         const mainContent = document.getElementById('main-content');
         const contentTitle = document.getElementById('content-title');
@@ -214,17 +330,16 @@
                         <p class="text-gray-700 leading-relaxed mb-4">
                             Watch a short video clip to see plant cells under the microscope.
                         </p>
-                        <div class="video-container mx-auto max-w-2xl">
-                            <!-- Embedded YouTube Short (muted, no controls) -->
+                        <div class="video-container mx-auto max-w-md relative overflow-hidden rounded-lg shadow-lg transition-all duration-500 hover:scale-105" style="padding-top: 56.25%; height: 0;">
                             <iframe
                                 src="https://www.youtube.com/embed/flLN3z9ExRc?rel=0&modestbranding=1&controls=0&showinfo=0&autoplay=0&mute=1"
                                 title="YouTube video player"
                                 allow="autoplay; encrypted-media"
                                 allowfullscreen
                                 frameborder="0"
-                                class="w-full h-full rounded-lg"
-                                style="position:absolute;top:0;left:0;width:100%;height:100%;">
-                            </iframe>
+                                class="absolute top-0 left-0 w-full h-full rounded-lg"
+                                style="height:100%;width:100%;"
+                            ></iframe>
                         </div>
                         <p class="text-sm text-gray-600 mt-4">
                             Copyright! Video from YouTube.
@@ -247,7 +362,7 @@
                     <div class="mt-6 p-6 bg-indigo-50 rounded-lg shadow-sm">
                         <h3 class="text-xl font-semibold text-indigo-800 mb-3">Contribution Guidelines:</h3>
                         <p class="text-gray-700">
-                            Interested in project? Read our <a href="https://github.com/RandomCatUser/SchoolProject/blob/main/README.md" class="text-indigo-600 hover:underline font-medium" target="_blank" rel="noopener noreferrer">contribution guidelines</a>
+                            Interested in contributing? Read our <a href="https://github.com/RandomCatUser/SchoolProject/blob/main/CONTRIBUTING.md" class="text-indigo-600 hover:underline font-medium" target="_blank" rel="noopener noreferrer">contribution guidelines</a>
                             to get started.
                         </p>
                     </div>
@@ -269,7 +384,7 @@
                 `,
                 plantCellTranslated: `
                     <p class="text-gray-700 leading-relaxed mb-4">
-                        ශාක සෛල යනු ශාකවල මූලික ජීව ඒකකයයි. ඒවා සත්‍ය න්‍යෂ්ටියක් සහ විශේෂිත ඉන්ද්‍රියයන් සහිත යුකැරියෝටික් සෛල වේ.
+                        ශාක සෛල යනු ශාක මූලික ජීව ඒකකයයි. ඒවා සත්‍ය න්‍යෂ්ටියක් සහ විශේෂිත ඉන්ද්‍රියයන් සහිත යුකැරියෝටික් සෛල වේ.
                     </p>
                     <h4 class="text-lg font-semibold text-blue-700 mb-2">ප්‍රධාන කොටස්:</h4>
                     <ul class="list-disc list-inside text-gray-700 space-y-1">
@@ -290,15 +405,17 @@
                         <p class="text-gray-700 leading-relaxed mb-4">
                             Explore an interactive 3D model of a plant cell.
                         </p>
-                        <div class="sketchfab-embed-wrapper">
+                        <div class="sketchfab-embed-wrapper mx-auto w-full" style="max-width:900px;">
                             <iframe
                                 title="Plant-cell"
                                 allowfullscreen
                                 mozallowfullscreen="true"
                                 webkitallowfullscreen="true"
                                 allow="autoplay; fullscreen; xr-spatial-tracking"
-                                src="https://sketchfab.com/models/3781575c7f864aeca5e08711533a9b48/embed?autostart=1&ui_infos=0&ui_controls=1&ui_stop=0&ui_inspector=0&ui_watermark=0">
-                            </iframe>
+                                src="https://sketchfab.com/models/3781575c7f864aeca5e08711533a9b48/embed?autostart=1&ui_infos=0&ui_controls=1&ui_stop=0&ui_inspector=0&ui_watermark=0"
+                                class="w-full"
+                                style="aspect-ratio: 16/9; min-height:300px; height:50vw; max-height:600px; border-radius:0.75rem;"
+                            ></iframe>
                         </div>
                         <p class="text-sm text-gray-600 mt-4">
                             Model courtesy of <a href="https://sketchfab.com/sketchfabulous" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:underline">Sketchfab</a>.
