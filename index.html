@@ -218,6 +218,13 @@
                             Team
                         </a>
                     </li>
+                    <!-- New Extras section -->
+                    <li class="mb-2 mt-6">
+                        <a href="#" id="nav-extras" data-section="extras" class="flex items-center p-3 rounded-lg text-gray-700 hover:bg-indigo-100 hover:text-indigo-700 transition-all duration-200">
+                            <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 17v-2a4 4 0 014-4h2a4 4 0 014 4v2"></path><circle cx="9" cy="7" r="4"></circle></svg>
+                            Extras
+                        </a>
+                    </li>
                 </ul>
             </nav>
         </aside>
@@ -401,28 +408,30 @@
             '3d-model': {
                 title: 'A Plant Cell (3D Model)',
                 body: `
-                    <div class="bg-blue-50 p-6 rounded-lg shadow-sm text-center">
-                        <p class="text-gray-700 leading-relaxed mb-4">
-                            Explore an interactive 3D model of a plant cell.
-                        </p>
-                        <div class="sketchfab-embed-wrapper mx-auto w-full" style="max-width:900px;">
-                            <iframe
-                                title="Plant-cell"
-                                allowfullscreen
-                                mozallowfullscreen="true"
-                                webkitallowfullscreen="true"
-                                allow="autoplay; fullscreen; xr-spatial-tracking"
-                                src="https://sketchfab.com/models/3781575c7f864aeca5e08711533a9b48/embed?autostart=1&ui_infos=0&ui_controls=1&ui_stop=0&ui_inspector=0&ui_watermark=0"
-                                class="w-full"
-                                style="aspect-ratio: 16/9; min-height:300px; height:50vw; max-height:600px; border-radius:0.75rem;"
-                            ></iframe>
-                        </div>
-                        <p class="text-sm text-gray-600 mt-4">
-                            Model courtesy of <a href="https://sketchfab.com/sketchfabulous" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:underline">Sketchfab</a>.
-                            For detailed information about the plant cell's components and functions, please refer to the <a href="#" data-section="documentation" class="text-purple-600 hover:underline font-medium">Documentation</a> section.
-                        </p>
-                    </div>
-                `
+        <div class="bg-blue-50 p-6 rounded-lg shadow-sm text-center">
+            <p class="text-gray-700 leading-relaxed mb-4">
+                Explore an interactive 3D model of a plant cell.
+            </p>
+            <div class="sketchfab-embed-wrapper">
+                <iframe title="Plant Cell Organelles" frameborder="0" allowfullscreen mozallowfullscreen="true" webkitallowfullscreen="true" allow="autoplay; fullscreen; xr-spatial-tracking" xr-spatial-tracking execution-while-out-of-viewport execution-while-not-rendered web-share src="https://sketchfab.com/models/e61e7bdf8c8449a583b364f05e70289b/embed"></iframe>
+                <p style="font-size: 13px; font-weight: normal; margin: 5px; color: #4A4A4A;">
+                    <a href="https://sketchfab.com/3d-models/plant-cell-organelles-e61e7bdf8c8449a583b364f05e70289b?utm_medium=embed&utm_campaign=share-popup&utm_content=e61e7bdf8c8449a583b364f05e70289b" target="_blank" rel="nofollow" style="font-weight: bold; color: #1CAAD9;">
+                        Plant Cell Organelles
+                    </a> by
+                    <a href="https://sketchfab.com/cvallance01?utm_medium=embed&utm_campaign=share-popup&utm_content=e61e7bdf8c8449a583b364f05e70289b" target="_blank" rel="nofollow" style="font-weight: bold; color: #1CAAD9;">
+                        CVallance
+                    </a> on
+                    <a href="https://sketchfab.com?utm_medium=embed&utm_campaign=share-popup&utm_content=e61e7bdf8c8449a583b364f05e70289b" target="_blank" rel="nofollow" style="font-weight: bold; color: #1CAAD9;">
+                        Sketchfab
+                    </a>
+                </p>
+            </div>
+            <p class="text-sm text-gray-600 mt-4">
+                Model courtesy of <a href="https://sketchfab.com/cvallance01" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:underline">CVallance</a>.
+                For detailed information about the plant cell's components and functions, please refer to the <a href="#" data-section="documentation" class="text-purple-600 hover:underline font-medium">Documentation</a> section.
+            </p>
+        </div>
+    `
             },
             team: { // Renamed from 'about' to 'team'
                 title: 'Our Team & Project', // Updated title
@@ -483,6 +492,32 @@
                         </div>
                     </div>
                 `
+            },
+            extras: {
+                title: 'Extras',
+                body: `
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div class="bg-white p-6 rounded-lg shadow-sm flex flex-col h-full">
+                <h3 class="text-xl font-semibold text-gray-900 mb-3">Legal Information</h3>
+                <p class="text-gray-700 leading-relaxed mb-2">
+                    This project is for educational purposes only. All 3D models, images, and videos are credited to their respective owners. No copyright infringement intended.
+                </p>
+                <p class="text-gray-700 mt-auto">
+                    For more details, see the <a href="legal.html" target="_blank" class="text-indigo-600 hover:underline font-medium">project license</a>.
+                </p>
+            </div>
+            <div class="bg-white p-6 rounded-lg shadow-sm flex flex-col h-full">
+                <h3 class="text-xl font-semibold text-gray-900 mb-3">Release Information</h3>
+                <ul class="list-disc list-inside text-gray-700 space-y-2 mb-2">
+                    <li><strong>v1.0.0</strong> – Initial public release with all main features.</li>
+                    <li><strong>v0.9.0</strong> – Beta version for internal testing.</li>
+                </ul>
+                <p class="text-gray-700 mt-auto">
+                    For the latest updates, visit the <a href="release.html" target="_blank" class="text-indigo-600 hover:underline font-medium">GitHub Releases page</a>.
+                </p>
+            </div>
+        </div>
+    `
             }
         };
 
