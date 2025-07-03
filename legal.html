@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Eat a cookie</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- AOS CSS CDN -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <style>
+        /* JetBrains Mono Font Import */
+        @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600;700&display=swap');
+        body {
+            font-family: 'JetBrains Mono', monospace; /* Using monospace as a generic fallback */
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            scroll-behavior: smooth; /* For smooth scrolling if links are used */
+            overflow-x: hidden; /* Prevent horizontal scroll during animations */
+            cursor: default; /* Default macOS-like arrow cursor */
+        }
+
+        /* Loading Overlay Styles */
+        #loading-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #ffffff; /* White background */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999; /* Ensure it's on top of everything */
+            opacity: 1;
+            transition: opacity 0.5s ease-out; /* Smooth fade out */
+        }
+
+        #loading-overlay.hidden {
+            opacity: 0;
+            pointer-events: none; /* Allow clicks through once hidden */
+        }
+
+        /* Loading Spinner Styles */
+        .spinner {
+            border: 4px solid rgba(0, 0, 0, 0.1);
+            border-left-color: #3b82f6; /* Tailwind blue-500 */
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Cursor styles for interactive elements (macOS-like pointer) */
+        button, a, .clickable-section-header {
+            cursor: pointer; /* Pointing hand for buttons, links, and clickable headers */
+        }
+
+        /* Cursor style for text selection (macOS-like I-beam) */
+        h1, h2, h3, p, ul, li {
+            cursor: text; /* I-beam for text content */
+        }
+
+        /* Modal specific styles for animation */
+        .modal-active #guide-modal-content {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        /* Custom scrollbar for modal body */
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 10px;
+        }
+
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #888;
+            border-radius: 10px;
+        }
+
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+            background: #555;
+        }
+    </style>
+</head>
+<body class="bg-white text-gray-900 flex justify-center py-8 sm:py-12 px-4 sm:px-6 lg:px-8 min-h-screen">
+
+    <!-- Loading Overlay -->
+    <div id="loading-overlay">
+        <div class="spinner"></div>
+    </div>
+
+    <div class="max-w-full md:max-w-4xl w-full">
+        <header class="text-center mb-10 sm:mb-16" data-aos="fade-down" data-aos-duration="800">
+            <h1 class="text-4xl sm:text-5xl font-bold text-gray-900 mb-2 sm:mb-4">
+                Legal <span class="text-gray-500">7.01.25</span>
+            </h1>
+            <p class="text-base text-gray-600 max-w-xl mx-auto mb-8">
+                Learn legal of our school project! Click on any section to learn more.
+            </p>
+            <div class="mt-6 sm:mt-8 flex flex-col sm:flex-row justify-center space-y-3 sm:space-y-0 sm:space-x-4">
+                <button class="px-5 py-2 border border-gray-300 text-gray-700 rounded-md hover:bg-gray-100 transition-colors duration-200 text-sm">
+                    Filter
+                </button>
+                <a href="https://github.com/RandomCatUser/SchoolProject" target="_blank" rel="noopener noreferrer" class="px-5 py-2 border border-gray-300 text-gray-700 rounded-md hover:bg-gray-100 transition-colors duration-200 text-sm flex items-center justify-center space-x-2">
+                    <svg class="h-4 w-4" aria-hidden="true" fill="currentColor" viewBox="0 0 16 16">
+                        <path fill-rule="evenodd" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.53-.49-.4-.94-.97-1.19-.97-1.19-.65-.45.05-.44.05-.44.73.05 1.12.73 1.12.73.64 1.12 1.68.8 2.09.61.06-.47.25-.8.41-1C9.19 13.6 5.92 12.5 5.92 7.13c0-1.12.4-2.03 1.02-2.75-.1-.26-.45-1.38.1-2.88 0 0 .84-.27 2.75 1.05.8-.22 1.65-.33 2.5-.33.85 0 1.7.11 2.5.33 1.91-1.32 2.75-1.05 2.75-1.05.55 1.5.2 2.62.1 2.88.62.72 1.02 1.63 1.02 2.75 0 5.38-3.27 6.46-6.35 6.75.27.23.52.67.52 1.35 0 .98-.01 1.77-.01 2.01 0 .21.15.46.55.38C13.71 14.53 16 11.54 16 8c0-4.42-3.58-8-8-8z"/>
+                    </svg>
+                    <span>GitHub Repository</span>
+                </a>
+            </div>
+        </header>
+
+        <main class="space-y-8 sm:space-y-12">
+            <!-- New Feature: How to Clone the Repository -->
+            <section class="flex flex-col md:flex-row border-b border-gray-200 pb-6 sm:pb-8" data-aos="fade-up" data-aos-delay="100">
+                <div class="md:w-1/3 md:pr-8 mb-4 md:mb-0 clickable-section-header" data-guide-id="how-to-clone">
+                    <h2 class="text-xs sm:text-sm font-semibold uppercase text-gray-500 mb-1 sm:mb-2">Getting Started</h2>
+                    <h3 class="text-lg sm:text-xl font-semibold text-gray-800 mb-1 sm:mb-2 flex items-center justify-between">
+                        How to Clone This Repository
+                        <svg class="h-5 w-5 text-gray-500 transform transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+                    </h3>
+                    <div class="text-xs text-gray-600 space-y-1 sm:space-y-0 sm:flex sm:flex-wrap sm:gap-1">
+                        <span class="inline-block bg-purple-100 text-purple-800 px-2 py-0.5 rounded mr-1">Git</span>
+                        <span class="inline-block bg-purple-100 text-purple-800 px-2 py-0.5 rounded">Tutorial</span>
+                    </div>
+                </div>
+                <div class="md:w-2/3">
+                    <ul class="list-disc pl-5 text-gray-700 leading-relaxed space-y-2 text-sm sm:text-base">
+                        <li>
+                            Learn how to get a local copy of this project on your machine.
+                        </li>
+                        <li>
+                            Essential steps for developers and contributors.
+                        </li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- New Feature: License Information -->
+            <section class="flex flex-col md:flex-row border-b border-gray-200 pb-6 sm:pb-8" data-aos="fade-up" data-aos-delay="100">
+                <div class="md:w-1/3 md:pr-8 mb-4 md:mb-0 clickable-section-header" data-guide-id="license-info">
+                    <h2 class="text-xs sm:text-sm font-semibold uppercase text-gray-500 mb-1 sm:mb-2">Legal</h2>
+                    <h3 class="text-lg sm:text-xl font-semibold text-gray-800 mb-1 sm:mb-2 flex items-center justify-between">
+                        License Information (MIT)
+                        <svg class="h-5 w-5 text-gray-500 transform transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+                    </h3>
+                    <div class="text-xs text-gray-600 space-y-1 sm:space-y-0 sm:flex sm:flex-wrap sm:gap-1">
+                        <span class="inline-block bg-indigo-100 text-indigo-800 px-2 py-0.5 rounded mr-1">Legal</span>
+                        <span class="inline-block bg-indigo-100 text-indigo-800 px-2 py-0.5 rounded">Open Source</span>
+                    </div>
+                </div>
+                <div class="md:w-2/3">
+                    <ul class="list-disc pl-5 text-gray-700 leading-relaxed space-y-2 text-sm sm:text-base">
+                        <li>
+                            Details about the open-source license governing this project.
+                        </li>
+                        <li>
+                            Understand your rights and permissions.
+                        </li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- New Section: Copyright Information -->
+            <section class="flex flex-col md:flex-row border-b border-gray-200 pb-6 sm:pb-8" data-aos="fade-up" data-aos-delay="100">
+                <div class="md:w-1/3 md:pr-8 mb-4 md:mb-0 clickable-section-header" data-guide-id="copyright-info">
+                    <h2 class="text-xs sm:text-sm font-semibold uppercase text-gray-500 mb-1 sm:mb-2">Attribution</h2>
+                    <h3 class="text-lg sm:text-xl font-semibold text-gray-800 mb-1 sm:mb-2 flex items-center justify-between">
+                        Copyright Information
+                        <svg class="h-5 w-5 text-gray-500 transform transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+                    </h3>
+                    <div class="text-xs text-gray-600 space-y-1 sm:space-y-0 sm:flex sm:flex-wrap sm:gap-1">
+                        <span class="inline-block bg-gray-100 text-gray-800 px-2 py-0.5 rounded mr-1">Legal</span>
+                        <span class="inline-block bg-gray-100 text-gray-800 px-2 py-0.5 rounded">Credits</span>
+                    </div>
+                </div>
+                <div class="md:w-2/3">
+                    <ul class="list-disc pl-5 text-gray-700 leading-relaxed space-y-2 text-sm sm:text-base">
+                        <li>
+                            Acknowledging the third-party resources used in this project.
+                        </li>
+                        <li>
+                            Important copyright and licensing details.
+                        </li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- New Section: Cookies Information -->
+            <section class="flex flex-col md:flex-row pb-6 sm:pb-8" data-aos="fade-up" data-aos-delay="100">
+                <div class="md:w-1/3 md:pr-8 mb-4 md:mb-0 clickable-section-header" data-guide-id="cookies-info">
+                    <h2 class="text-xs sm:text-sm font-semibold uppercase text-gray-500 mb-1 sm:mb-2">Privacy</h2>
+                    <h3 class="text-lg sm:text-xl font-semibold text-gray-800 mb-1 sm:mb-2 flex items-center justify-between">
+                        Cookies Information
+                        <svg class="h-5 w-5 text-gray-500 transform transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+                    </h3>
+                    <div class="text-xs text-gray-600 space-y-1 sm:space-y-0 sm:flex sm:flex-wrap sm:gap-1">
+                        <span class="inline-block bg-pink-100 text-pink-800 px-2 py-0.5 rounded mr-1">Privacy</span>
+                        <span class="inline-block bg-pink-100 text-pink-800 px-2 py-0.5 rounded">Data Policy</span>
+                    </div>
+                </div>
+                <div class="md:w-2/3">
+                    <ul class="list-disc pl-5 text-gray-700 leading-relaxed space-y-2 text-sm sm:text-base">
+                        <li>
+                            Details on how this project uses cookies.
+                        </li>
+                        <li>
+                            Understanding data collection practices.
+                        </li>
+                    </ul>
+                </div>
+            </section>
+
+        </main>
+
+        <footer class="mt-12 sm:mt-16 text-center" data-aos="fade-up" data-aos-delay="100">
+            <a href="index.html" class="text-blue-600 hover:text-blue-800 font-medium text-base sm:text-lg transition-colors duration-200">
+                ← Back to Homepage
+            </a>
+            <p class="text-xs text-gray-500 mt-2">Made by RandomCatUser</p>
+        </footer>
+    </div>
+
+    <!-- Guide Modal -->
+    <div id="guide-modal-overlay" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">
+        <div id="guide-modal-content" class="bg-white p-6 rounded-lg shadow-lg max-w-2xl w-full mx-4 transform scale-95 opacity-0 transition-all duration-300 ease-out">
+            <div class="flex justify-between items-center border-b pb-3 mb-4">
+                <h3 id="modal-title" class="text-xl font-bold text-gray-900"></h3>
+                <button id="close-modal" class="text-gray-500 hover:text-gray-700 focus:outline-none">
+                    <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+                </button>
+            </div>
+            <div id="modal-body" class="text-gray-700 text-sm leading-relaxed max-h-96 overflow-y-auto custom-scrollbar">
+                <!-- Guide content will be injected here -->
+            </div>
+            <div class="mt-6 text-right">
+                <button id="modal-close-button-bottom" class="px-4 py-2 bg-gray-200 text-gray-800 rounded-md hover:bg-gray-300 transition-colors duration-200">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- AOS JS CDN -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        // Initialize AOS and hide loading overlay after the DOM is fully loaded
+        document.addEventListener('DOMContentLoaded', function() {
+            AOS.init({
+                duration: 800,
+                once: true,
+            });
+
+            // Hide loading overlay
+            const loadingOverlay = document.getElementById('loading-overlay');
+            if (loadingOverlay) {
+                loadingOverlay.classList.add('hidden'); // Add hidden class to trigger fade out
+                // Optional: remove the element from DOM after transition for cleaner HTML
+                loadingOverlay.addEventListener('transitionend', function() {
+                    loadingOverlay.remove();
+                });
+            }
+
+            // Get modal elements
+            const modalOverlay = document.getElementById('guide-modal-overlay');
+            const modalContent = document.getElementById('guide-modal-content');
+            const modalTitle = document.getElementById('modal-title');
+            const modalBody = document.getElementById('modal-body');
+            const closeModalButtons = [
+                document.getElementById('close-modal'),
+                document.getElementById('modal-close-button-bottom')
+            ];
+
+            // Define guide content for each section
+            const guides = {
+                'how-to-clone': {
+                    title: 'How to Clone the Repository',
+                    content: `
+                        <p class="mb-4">Cloning the repository allows you to get a full local copy of the project, including all its files and version history. This is essential if you want to contribute, run the project locally, or simply explore the codebase.</p>
+                        <h4 class="font-semibold text-gray-800 mb-2">Steps to Clone:</h4>
+                        <ol class="list-decimal pl-5 mb-4 space-y-2">
+                            <li>
+                                <strong>Install Git:</strong> If you don't have Git installed, download it from <a href="https://git-scm.com/downloads" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:underline">git-scm.com/downloads</a> and follow the installation instructions for your operating system.
+                            </li>
+                            <li>
+                                <strong>Open your Terminal/Command Prompt:</strong> Navigate to the directory where you want to save the project.
+                                <pre class="bg-gray-100 p-2 rounded-md text-sm mt-1 overflow-x-auto"><code>cd path/to/your/desired/directory</code></pre>
+                            </li>
+                            <li>
+                                <strong>Clone the Repository:</strong> Use the \`git clone\` command followed by the repository URL.
+                                <pre class="bg-gray-100 p-2 rounded-md text-sm mt-1 overflow-x-auto"><code>git clone https://github.com/RandomCatUser/SchoolProject.git</code></pre>
+                                This will create a new folder named \`SchoolProject\` containing all the project files.
+                            </li>
+                            <li>
+                                <strong>Navigate into the Project:</strong>
+                                <pre class="bg-gray-100 p-2 rounded-md text-sm mt-1 overflow-x-auto"><code>cd SchoolProject</code></pre>
+                            </li>
+                            <li>
+                                You now have a local copy of the repository and can start working with it!
+                            </li>
+                        </ol>
+                        <p>For more advanced Git commands and workflows, refer to the <a href="https://git-scm.com/doc" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:underline">official Git documentation</a>.</p>
+                    `
+                },
+                'license-info': {
+                    title: 'License Information (MIT License)',
+                    content: `
+                        <p class="mb-4">This project is released under the **MIT License**. This is a permissive free software license, meaning you are free to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the software.</p>
+                        <h4 class="font-semibold text-gray-800 mb-2">Key Permissions:</h4>
+                        <ul class="list-disc pl-5 mb-4">
+                            <li><strong>Commercial Use:</strong> You can use this software in commercial products.</li>
+                            <li><strong>Modification:</strong> You can modify the software.</li>
+                            <li><strong>Distribution:</strong> You can distribute the software.</li>
+                            <li><strong>Private Use:</strong> You can use the software privately.</li>
+                        </ul>
+                        <h4 class="font-semibold text-gray-800 mb-2">Key Conditions:</h4>
+                        <ul class="list-disc pl-5 mb-4">
+                            <li><strong>License and Copyright Notice:</strong> The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.</li>
+                        </ul>
+                        <h4 class="font-semibold text-gray-800 mb-2">Key Limitations:</h4>
+                        <ul class="list-disc pl-5">
+                            <li><strong>Liability:</strong> The software is provided "as is", without warranty of any kind. The authors or copyright holders are not liable for any claims, damages, or other liability arising from the software.</li>
+                        </ul>
+                        <p class="mt-4">You can read the full MIT License text on GitHub: <a href="https://github.com/RandomCatUser/SchoolProject/blob/main/LICENSE" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:underline">View MIT License</a></p>
+                    `
+                },
+                'copyright-info': {
+                    title: 'Copyright Information',
+                    content: `
+                        <p class="mb-4">This project utilizes several third-party libraries and resources. We extend our gratitude to the creators and maintainers of these valuable tools.</p>
+                        <h4 class="font-semibold text-gray-800 mb-2">Copyrights:</h4>
+                        <ul class="list-disc pl-5 mb-4 space-y-2">
+                            <li>
+                                <strong>Tailwind CSS:</strong> &copy; 2020 Tailwind Labs Inc. All rights reserved. Licensed under the MIT License.
+                                <br><a href="https://tailwindcss.com/license" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:underline">Tailwind CSS License</a>
+                            </li>
+                            <li>
+                                <strong>Unpkg.com:</strong> &copy; 2015-present Michael Jackson. Unpkg is a CDN for everything on npm.
+                                <br><a href="https://unpkg.com/" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:underline">Unpkg.com Website</a>
+                            </li>
+                            <li>
+                                <strong>YouTube.com Videos:</strong> Copyright for videos embedded or referenced from YouTube.com belongs to their respective creators. This project does not claim ownership or rights to any external video content. Usage is subject to YouTube's Terms of Service and the individual video creator's licensing.
+                                <br><a href="https://www.youtube.com/t/terms" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:underline">YouTube Terms of Service</a>
+                            </li>
+                            <li>
+                                <strong>AOS (Animate On Scroll):</strong> &copy; 2016 Michał Sajnóg. Licensed under the MIT License.
+                                <br><a href="https://michalsnik.github.io/aos/" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:underline">AOS GitHub Repository</a>
+                            </li>
+                            <li>
+                                <strong>JetBrains Mono Font:</strong> &copy; 2020 JetBrains. Licensed under the Open Font License.
+                                <br><a href="https://www.jetbrains.com/lp/fonts/mono/" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:underline">JetBrains Mono Website</a>
+                            </li>
+                        </ul>
+                        <p class="mt-4">All other original content within this "School Project" repository is &copy; 2025 RandomCatUser, unless otherwise specified, and is also licensed under the MIT License.</p>
+                    `
+                },
+                'cookies-info': {
+                    title: 'Cookies Information',
+                    content: `
+                        <p class="mb-4">This website uses cookies to enhance your experience and gather data for analytical purposes. By continuing to use this site, you consent to the use of cookies.</p>
+                        <h4 class="font-semibold text-gray-800 mb-2">Data Collection:</h4>
+                        <p class="mb-4">We collect as much data as possible to improve our services, understand user behavior, and personalize content. This may include, but is not limited to, browsing activity, device information, and interaction patterns.</p>
+                        <p class="mb-4">For more details on the types of cookies used and how we handle your data, please refer to our full Privacy Policy (link to be added).</p>
+                        <h4 class="font-semibold text-gray-800 mb-2">Managing Cookies:</h4>
+                        <p>Most web browsers allow you to control cookies through their settings. You can typically set your browser to notify you when you receive a cookie, giving you the chance to decide whether to accept it or not. You can also delete cookies that have already been set.</p>
+                    `
+                }
+            };
+
+            // Function to open the modal
+            function openModal(guideId) {
+                const guide = guides[guideId];
+                if (guide) {
+                    modalTitle.textContent = guide.title;
+                    modalBody.innerHTML = guide.content;
+                    modalOverlay.classList.remove('hidden');
+                    // Trigger animation
+                    setTimeout(() => {
+                        modalOverlay.classList.add('modal-active');
+                    }, 10); // Small delay to allow display property to apply
+                }
+            }
+
+            // Function to close the modal
+            function closeModal() {
+                modalOverlay.classList.remove('modal-active');
+                modalContent.addEventListener('transitionend', function handler() {
+                    modalOverlay.classList.add('hidden');
+                    modalContent.removeEventListener('transitionend', handler);
+                }, { once: true });
+            }
+
+            // Add event listeners to clickable section headers
+            document.querySelectorAll('.clickable-section-header').forEach(header => {
+                header.addEventListener('click', function() {
+                    const guideId = this.dataset.guideId;
+                    openModal(guideId);
+                });
+            });
+
+            // Add event listeners to close modal buttons
+            closeModalButtons.forEach(button => {
+                button.addEventListener('click', closeModal);
+            });
+
+            // Close modal when clicking outside the content
+            modalOverlay.addEventListener('click', function(event) {
+                if (event.target === modalOverlay) {
+                    closeModal();
+                }
+            });
+
+            // Close modal with Escape key
+            document.addEventListener('keydown', function(event) {
+                if (event.key === 'Escape' && !modalOverlay.classList.contains('hidden')) {
+                    closeModal();
+                }
+            });
+        });
+    </script>
+</body>
+</html>
